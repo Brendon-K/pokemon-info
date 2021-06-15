@@ -70,9 +70,30 @@ function load_stats() {
   matchups.Dark = 1;
   matchups.Steel = 1;
   matchups.Fairy = 1;
+  // loop through selected pokemon types
   for (let i = 0; i < num_types; ++i) {
+    let type = selected_pokemon['type'][i];
+    // for each type, change relevant matchup information
+    // weaknesses
+    let num_weaknesses = types[type]['weak'].length;
+    for (let j = 0; j < num_weaknesses; ++j) {
+      matchups[types[type]['weak'][j]] *= 2;
+    }
 
+    // resists
+    let num_resists = types[type]['resist'].length;
+    for (let j = 0; j < num_resists; ++j) {
+      matchups[types[type]['resist'][j]] *= 0.5;
+    }
+
+    // immunities
+    let num_immunities = types[type]['immune'].length;
+    for (let j = 0; j < num_immunities; ++j) {
+      matchups[types[type]['immune'][j]] = 0;
+    }
   }
+
+  console.log(matchups);
 
   // add pokemon stats
   document.getElementById('total').innerHTML = selected_pokemon['total'];
