@@ -1,0 +1,8 @@
+.outer {
+    overflow: hidden;
+}
+
+.inner {
+    float: left;
+    padding-left: 20px;
+}  
