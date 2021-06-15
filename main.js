@@ -45,9 +45,9 @@ function load_stats() {
   let type1 = selected_pokemon['type'][0];
   let type2 = num_types > 1 ? selected_pokemon['type'][1] : "";
 
-  document.getElementById('pokemon-type').innerHTML = type1;
+  document.getElementById('pokemon-type1').innerHTML = type1;
   if (num_types > 1) {
-    document.getElementById('pokemon-type').innerHTML += '<br>' + type2;
+    document.getElementById('pokemon-type2').innerHTML = type2;
   }
 
   // add pokemon matchup info
@@ -93,7 +93,37 @@ function load_stats() {
     }
   }
 
-  console.log(matchups);
+  // add info to page
+  document.getElementById('pokemon-weaknesses').innerHTML = '';
+  let first_weakness = true;
+  document.getElementById('pokemon-resists').innerHTML = '';
+  let first_resist = true;
+  document.getElementById('pokemon-immunities').innerHTML = '';
+  let first_immunity = true;
+  for (const matchup in matchups) {
+    if (matchups[matchup] > 1) {
+      if (first_weakness) {
+        first_weakness = false;
+      } else {
+        document.getElementById('pokemon-weaknesses').innerHTML += '<br>'
+      }
+      document.getElementById('pokemon-weaknesses').innerHTML += matchup + ' ' + matchups[matchup];
+    } else if (matchups[matchup] > 0 && matchups[matchup] < 1) {
+      if (first_resist) {
+        first_resist = false;
+      } else {
+        document.getElementById('pokemon-resists').innerHTML += '<br>'
+      }
+      document.getElementById('pokemon-resists').innerHTML += matchup + ' ' + matchups[matchup];
+    } else if (matchups[matchup] == 0) {
+      if (first_immunity) {
+        first_immunity = false;
+      } else {
+        document.getElementById('pokemon-immunities').innerHTML += '<br>'
+      }
+      document.getElementById('pokemon-immunities').innerHTML += matchup;
+    }
+  }
 
   // add pokemon stats
   document.getElementById('total').innerHTML = selected_pokemon['total'];
