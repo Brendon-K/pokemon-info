@@ -94,16 +94,17 @@ function load_stats() {
   }
 
   // add info to page
-  document.getElementById('pokemon-weaknesses').innerHTML = '';
+  document.getElementById('pokemon-weaknesses').innerHTML = 'None';
   let first_weakness = true;
-  document.getElementById('pokemon-resists').innerHTML = '';
+  document.getElementById('pokemon-resists').innerHTML = 'None';
   let first_resist = true;
-  document.getElementById('pokemon-immunities').innerHTML = '';
+  document.getElementById('pokemon-immunities').innerHTML = 'None';
   let first_immunity = true;
   for (const matchup in matchups) {
     if (matchups[matchup] > 1) {
       if (first_weakness) {
         first_weakness = false;
+        document.getElementById('pokemon-weaknesses').innerHTML = '';
       } else {
         document.getElementById('pokemon-weaknesses').innerHTML += '<br>'
       }
@@ -111,6 +112,7 @@ function load_stats() {
     } else if (matchups[matchup] > 0 && matchups[matchup] < 1) {
       if (first_resist) {
         first_resist = false;
+        document.getElementById('pokemon-resists').innerHTML = '';
       } else {
         document.getElementById('pokemon-resists').innerHTML += '<br>'
       }
@@ -118,6 +120,7 @@ function load_stats() {
     } else if (matchups[matchup] == 0) {
       if (first_immunity) {
         first_immunity = false;
+        document.getElementById('pokemon-immunities').innerHTML = '';
       } else {
         document.getElementById('pokemon-immunities').innerHTML += '<br>'
       }
