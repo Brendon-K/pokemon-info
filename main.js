@@ -146,7 +146,7 @@ function load_stats() {
     let evolution = pokemon[index];
     document.getElementById('previous-evo').innerHTML = evolution['number'] + ' ' + evolution['name'];
   } else {
-    document.getElementById('previous-evo').innerHTML = '';
+    document.getElementById('previous-evo').innerHTML = 'None';
   }
 
   document.getElementById('next-evo').innerHTML = '';
@@ -162,6 +162,6 @@ function load_stats() {
       document.getElementById('next-evo').innerHTML += evolution['number'] + ' ' + evolution['name'];
     }
   } else {
-    document.getElementById('next-evo').innerHTML = '';
+    document.getElementById('next-evo').innerHTML = 'None';
   }
 }
