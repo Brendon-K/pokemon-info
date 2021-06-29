@@ -30,7 +30,7 @@ $.when(pokemon_promise, types_promise).done(function() {
 });
 
 function get_matchups(selected_types) {
-  let num_types = selected_types.length;
+  let num_selected_types = selected_types.length;
   let matchups = new Object();
   matchups.Normal = 1;
   matchups.Fire = 1;
@@ -51,7 +51,7 @@ function get_matchups(selected_types) {
   matchups.Steel = 1;
   matchups.Fairy = 1;
   // loop through selected pokemon types
-  for (let i = 0; i < num_types; ++i) {
+  for (let i = 0; i < num_selected_types; ++i) {
     let type = selected_types[i];
     // for each type, change relevant matchup information
     // weaknesses
@@ -106,7 +106,36 @@ function get_matchups(selected_types) {
       document.getElementById('pokemon-immunities').innerHTML += matchup;
     }
   }
-;
+
+  // create table showing matchups
+  let matchup_table = '<table><tr><th></th>';
+  for (let i = 0; i < num_selected_types; ++i) {
+    matchup_table += '<th>' + selected_types[i] + '</th>';
+  }
+  matchup_table += '</tr>';
+  for (type in types) {
+    let row = '<tr>';
+    row += '<td>' + type + '</td>';
+    
+    for (let j = 0; j < num_selected_types; ++j) {
+      if (types[selected_types[j]]['weak'].includes(type)) {
+        row += '<td>2</td>';
+      } else if (types[selected_types[j]]['resist'].includes(type)) {
+        row += '<td>½</td>';
+      } else if (types[selected_types[j]]['immune'].includes(type)) {
+        row += '<td>0</td>';
+      } else {
+        row += '<td></td>';
+      }
+    }
+
+    row += '</tr>';
+    matchup_table += row;
+  }
+  matchup_table += '</table>'
+  console.log(matchup_table);
+  document.getElementById('matchup-table').innerHTML = matchup_table;
+
 }
 
 function load_type_info() {
