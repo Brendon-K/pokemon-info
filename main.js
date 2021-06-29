@@ -165,3 +165,7 @@ function load_stats() {
     document.getElementById('next-evo').innerHTML = 'None';
   }
 }
+
+function load_type_info() {
+  console.log("This works.");
+}

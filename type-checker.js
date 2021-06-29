@@ -110,20 +110,20 @@ function get_matchups(selected_types) {
   // create table showing matchups
   let matchup_table = '<table><tr><th></th>';
   for (let i = 0; i < num_selected_types; ++i) {
-    matchup_table += '<th>' + selected_types[i] + '</th>';
+    matchup_table += '<th id=' + selected_types[i].toLowerCase() + ' >' + selected_types[i] + '</th>';
   }
   matchup_table += '</tr>';
   for (type in types) {
     let row = '<tr>';
-    row += '<td>' + type + '</td>';
+    row += '<td id="' + type.toLowerCase() + '"' + ' >' + type + '</td>';
     
     for (let j = 0; j < num_selected_types; ++j) {
       if (types[selected_types[j]]['weak'].includes(type)) {
-        row += '<td>2</td>';
+        row += '<td id="super-effective">2</td>';
       } else if (types[selected_types[j]]['resist'].includes(type)) {
-        row += '<td>½</td>';
+        row += '<td id="not-very-effective">½</td>';
       } else if (types[selected_types[j]]['immune'].includes(type)) {
-        row += '<td>0</td>';
+        row += '<td id="immune">0</td>';
       } else {
         row += '<td></td>';
       }
@@ -132,7 +132,7 @@ function get_matchups(selected_types) {
     row += '</tr>';
     matchup_table += row;
   }
-  matchup_table += '</table>'
+  matchup_table += '</table>';
   document.getElementById('matchup-table').innerHTML = matchup_table;
 
 }
