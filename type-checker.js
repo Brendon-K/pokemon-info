@@ -133,7 +133,6 @@ function get_matchups(selected_types) {
     matchup_table += row;
   }
   matchup_table += '</table>'
-  console.log(matchup_table);
   document.getElementById('matchup-table').innerHTML = matchup_table;
 
 }
