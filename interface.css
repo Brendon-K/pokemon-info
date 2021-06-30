@@ -22,84 +22,141 @@ th, td {
 
 #super-effective {
     background-color: #0bb02c;
+    color: #1E1A1A;
 }
 
 #not-very-effective {
     background-color: #b0160b;
+    color: #E1E4DF;
 }
 
 #immune {
     background-color: #737373;
+    color: #FFFFF5;
 }
 
 #normal {
     background-color: #a4abae;
+    color: #033123;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #fire {
     background-color: #fc7d23;
+    color: #342216;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #water {
     background-color: #4593c4;
+    color: #111115;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #electric {
     background-color: #ecd535;
+    color: #000000;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #grass {
     background-color: #9bcb50;
+    color: #32352E;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #ice {
     background-color: #52c3e7;
+    color: #13382A;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #fighting {
     background-color: #d46722;
+    color: #050B02;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #poison {
     background-color: #ba7fc9;
+    color: #18181A;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #ground {
     background-color: #D2BB40;
+    color: #1D3C1F;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #flying {
     background-color: #7EC0D4;
+    color: #24363E;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #psychic {
     background-color: #f366b9;
+    color: #271E2B;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #bug {
     background-color: #729f40;
+    color: #002102;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #rock {
     background-color: #a28b20;
+    color: #24130E;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #ghost {
     background-color: #7b62a2;
+    color: #FFFFF4;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #dragon {
     background-color: #A28A93;
+    color: #24141A;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #dark {
     background-color: #707070;
+    color: #FFFFF8;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #steel {
     background-color: #9eb8b8;
+    color: #043B19;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #fairy {
     background-color: #fdbaea;
+    color: #48404E;
+    padding-left: 2px;
+    padding-right: 2px;
 }

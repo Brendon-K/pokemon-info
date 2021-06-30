@@ -45,9 +45,9 @@ function load_stats() {
   let type1 = selected_pokemon['type'][0];
   let type2 = num_types > 1 ? selected_pokemon['type'][1] : "";
 
-  document.getElementById('pokemon-type1').innerHTML = type1;
+  document.getElementById('pokemon-type1').innerHTML = "<span id=" + type1.toLowerCase() + ">" + type1 + "</span>";
   if (num_types > 1) {
-    document.getElementById('pokemon-type2').innerHTML = type2;
+    document.getElementById('pokemon-type2').innerHTML = "<span id=" + type2.toLowerCase() + ">" + type2 + "</span>";
   }
 
   // add pokemon matchup info
@@ -108,7 +108,7 @@ function load_stats() {
       } else {
         document.getElementById('pokemon-weaknesses').innerHTML += '<br>'
       }
-      document.getElementById('pokemon-weaknesses').innerHTML += matchup + ' ' + matchups[matchup];
+      document.getElementById('pokemon-weaknesses').innerHTML += "<span id=" + matchup.toLowerCase() + ">" + matchup + "</span> " + matchups[matchup];
     } else if (matchups[matchup] > 0 && matchups[matchup] < 1) {
       if (first_resist) {
         first_resist = false;
@@ -116,7 +116,7 @@ function load_stats() {
       } else {
         document.getElementById('pokemon-resists').innerHTML += '<br>'
       }
-      document.getElementById('pokemon-resists').innerHTML += matchup + ' ' + matchups[matchup];
+      document.getElementById('pokemon-resists').innerHTML += "<span id=" + matchup.toLowerCase() + ">" + matchup + "</span> " + matchups[matchup];
     } else if (matchups[matchup] == 0) {
       if (first_immunity) {
         first_immunity = false;
@@ -124,7 +124,7 @@ function load_stats() {
       } else {
         document.getElementById('pokemon-immunities').innerHTML += '<br>'
       }
-      document.getElementById('pokemon-immunities').innerHTML += matchup;
+      document.getElementById('pokemon-immunities').innerHTML += "<span id=" + matchup.toLowerCase() + ">" + matchup + "</span>";
     }
   }
 
