@@ -15,39 +15,27 @@ $.when(pokemon_promise, types_promise).done(function() {
   let num_pokemon = pokemon.length;
 
   // add all pokemon to drop down
-  let drop_down = document.getElementById("pokemon");
+  let pokemon_drop_down = document.getElementById("pokemon");
   for (let i = 0; i < num_pokemon; ++i) {
     let selection = document.createElement("option");
     selection.text = pokemon[i]['name'];
-    drop_down.add(selection);
+    pokemon_drop_down.add(selection);
+  }
+
+  // add all types to tera drop-down
+  let tera_drop_down = document.getElementById("tera");
+  for (var key in types) {
+    let selection = document.createElement("option");
+    selection.text = key;
+    tera_drop_down.add(selection);
   }
 });
 
-function load_stats() {
-  // get pokemon name
-  let pokemon_name = document.getElementById("pokemon").value;
-
-  // do nothing if the default selection is picked
-  if (pokemon_name == "Select a Pokémon") return;
-
-  // find the JSON entry for the selected pokemon
-  let index = pokemon.findIndex(function(item, i){
-    return item.name === pokemon_name
-  });
-  let selected_pokemon = pokemon[index];
-
-  // add pokemon title info
-  document.getElementById('pokemon-number').innerHTML = selected_pokemon['number'];
-  document.getElementById('pokemon-name').innerHTML = selected_pokemon['name'];
-
-  // add pokemon type info
-  let num_types = selected_pokemon['type'].length;
-  let type1 = selected_pokemon['type'][0];
-  let type2 = num_types > 1 ? selected_pokemon['type'][1] : "";
-
-  document.getElementById('pokemon-type1').innerHTML = "<span id=" + type1.toLowerCase() + ">" + type1 + "</span>";
-  if (num_types > 1) {
-    document.getElementById('pokemon-type2').innerHTML = "<span id=" + type2.toLowerCase() + ">" + type2 + "</span>";
+function calculate_matchups(type1, type2=null) {
+  let num_types = type2 == null ? 1 : 2;
+  let selected_types = [type1, type2];
+  if (selected_types[1] == null) {
+    selected_types.pop();
   }
 
   // add pokemon matchup info
@@ -72,7 +60,7 @@ function load_stats() {
   matchups.Fairy = 1;
   // loop through selected pokemon types
   for (let i = 0; i < num_types; ++i) {
-    let type = selected_pokemon['type'][i];
+    let type = selected_types[i];
     // for each type, change relevant matchup information
     // weaknesses
     let num_weaknesses = types[type]['weak'].length;
@@ -127,7 +115,117 @@ function load_stats() {
       document.getElementById('pokemon-immunities').innerHTML += "<span id=" + matchup.toLowerCase() + ">" + matchup + "</span>";
     }
   }
+}
 
+function load_stats() {
+  // get pokemon name
+  let pokemon_name = document.getElementById("pokemon").value;
+
+  // do nothing if the default selection is picked
+  if (pokemon_name == "Select a Pokémon") return;
+
+  // find the JSON entry for the selected pokemon
+  let index = pokemon.findIndex(function(item, i){
+    return item.name === pokemon_name
+  });
+  let selected_pokemon = pokemon[index];
+
+  // add pokemon title info
+  document.getElementById('pokemon-number').innerHTML = selected_pokemon['number'];
+  document.getElementById('pokemon-name').innerHTML = selected_pokemon['name'];
+
+  // add pokemon type info
+  let num_types = selected_pokemon['type'].length;
+  let type1 = selected_pokemon['type'][0];
+  let type2 = num_types > 1 ? selected_pokemon['type'][1] : null;
+
+  document.getElementById('pokemon-type1').innerHTML = "<span id=" + type1.toLowerCase() + ">" + type1 + "</span>";
+  if (num_types > 1) {
+    document.getElementById('pokemon-type2').innerHTML = "<span id=" + type2.toLowerCase() + ">" + type2 + "</span>";
+  }
+
+  let matchups = calculate_matchups(selected_pokemon['type'][0], selected_pokemon['type'][1]);
+
+/*
+  // add pokemon matchup info
+  let matchups = new Object();
+  matchups.Normal = 1;
+  matchups.Fire = 1;
+  matchups.Water = 1;
+  matchups.Electric = 1;
+  matchups.Grass = 1;
+  matchups.Ice = 1;
+  matchups.Fighting = 1;
+  matchups.Poison = 1;
+  matchups.Ground = 1;
+  matchups.Flying = 1;
+  matchups.Psychic = 1;
+  matchups.Bug = 1;
+  matchups.Rock = 1;
+  matchups.Ghost = 1;
+  matchups.Dragon = 1;
+  matchups.Dark = 1;
+  matchups.Steel = 1;
+  matchups.Fairy = 1;
+  // loop through selected pokemon types
+  for (let i = 0; i < num_types; ++i) {
+    let type = selected_pokemon['type'][i];
+    // for each type, change relevant matchup information
+    // weaknesses
+    let num_weaknesses = types[type]['weak'].length;
+    for (let j = 0; j < num_weaknesses; ++j) {
+      matchups[types[type]['weak'][j]] *= 2;
+    }
+
+    // resists
+    let num_resists = types[type]['resist'].length;
+    for (let j = 0; j < num_resists; ++j) {
+      matchups[types[type]['resist'][j]] *= 0.5;
+    }
+
+    // immunities
+    let num_immunities = types[type]['immune'].length;
+    for (let j = 0; j < num_immunities; ++j) {
+      matchups[types[type]['immune'][j]] = 0;
+    }
+  }
+*/
+/*
+  // add info to page
+  document.getElementById('pokemon-weaknesses').innerHTML = 'None';
+  let first_weakness = true;
+  document.getElementById('pokemon-resists').innerHTML = 'None';
+  let first_resist = true;
+  document.getElementById('pokemon-immunities').innerHTML = 'None';
+  let first_immunity = true;
+  for (const matchup in matchups) {
+    if (matchups[matchup] > 1) {
+      if (first_weakness) {
+        first_weakness = false;
+        document.getElementById('pokemon-weaknesses').innerHTML = '';
+      } else {
+        document.getElementById('pokemon-weaknesses').innerHTML += '<br>'
+      }
+      document.getElementById('pokemon-weaknesses').innerHTML += "<span id=" + matchup.toLowerCase() + ">" + matchup + "</span> " + matchups[matchup];
+    } else if (matchups[matchup] > 0 && matchups[matchup] < 1) {
+      if (first_resist) {
+        first_resist = false;
+        document.getElementById('pokemon-resists').innerHTML = '';
+      } else {
+        document.getElementById('pokemon-resists').innerHTML += '<br>'
+      }
+      document.getElementById('pokemon-resists').innerHTML += "<span id=" + matchup.toLowerCase() + ">" + matchup + "</span> " + matchups[matchup];
+    } else if (matchups[matchup] == 0) {
+      if (first_immunity) {
+        first_immunity = false;
+        document.getElementById('pokemon-immunities').innerHTML = '';
+      } else {
+        document.getElementById('pokemon-immunities').innerHTML += '<br>'
+      }
+      document.getElementById('pokemon-immunities').innerHTML += "<span id=" + matchup.toLowerCase() + ">" + matchup + "</span>";
+    }
+  }
+*/
   // add pokemon stats
   document.getElementById('total').innerHTML = selected_pokemon['total'];
   document.getElementById('hp').innerHTML = selected_pokemon['hp'];
@@ -163,6 +261,20 @@ function load_stats() {
     }
   } else {
     document.getElementById('next-evo').innerHTML = 'None';
+  }
+}
+
+function load_tera() {
+  // get selected type
+  let type_name = document.getElementById("tera").value;
+
+  if (type_name == "Select a Tera Type") {
+    document.getElementById('tera-type1').innerHTML = "";
+    load_stats();
+  } else {
+    document.getElementById('tera-type1').innerHTML = "<span id=" + type_name.toLowerCase() + ">" + type_name + "</span>";
+
+    calculate_matchups(type_name);
   }
 }
 
